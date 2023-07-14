@@ -1,1 +1,0 @@
-INDEX VERSION 1.131+C:\Users\atira\Desktop\Faculdade - 6º período\SO-Jogo-Threads\Jogo-Teste\.metadata\.plugins\org.eclipse.jdt.core
