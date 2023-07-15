@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// FPS
 	public final int FPS = 90;
-	public final double drawInterval = 1000000000/FPS; // 0.01666 segundos
+	public final double drawInterval = 1000000000/FPS;
 	
 	TileManager tileM = new TileManager(this);
 	KeyHandler keyH_arrow = new KeyHandler(true);
@@ -38,16 +38,14 @@ public class GamePanel extends JPanel implements Runnable {
  	Ruas ruas;
  
 	
-	/**
-	 * Construtor do Game Panel
-	 */
+	// Game panel para configuração do jogo
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
-		this.addKeyListener(keyH_arrow); // Event listener do teclado
+		this.addKeyListener(keyH_arrow);
 		this.addKeyListener(keyH_ws);
-		this.setFocusable(true); // com isso o painel do jogo vai estar focado para receber inputs de teclado a
+		this.setFocusable(true);
 
 		cc = new ControleColisao(this);
 		mutex = new Semaphore(1, true);
@@ -57,9 +55,7 @@ public class GamePanel extends JPanel implements Runnable {
 		
 	}
 	
-	/**
-	 * Inicializar as Threads do Jogo
-	 */
+	// Threads para o jogo
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();
@@ -72,16 +68,11 @@ public class GamePanel extends JPanel implements Runnable {
 
 	@Override
 	public void run() {
-		double nextDrawTime = System.nanoTime() + drawInterval; // "nanoTime()" retorna o valor atual em nanossegundos.
+		double nextDrawTime = System.nanoTime() + drawInterval;
 		
 		while(gameThread != null) {
-			
-			// 1 UPDATE: Atualizar informa��es, como a posicao do usuario.
 			update();
-			
-			// 2 DRAW: Desenhar a tela com as informacoes atualizadas.
 			repaint();
-			
 			nextDrawTime = pausarThread(nextDrawTime);
 		}
 		
@@ -91,18 +82,15 @@ public class GamePanel extends JPanel implements Runnable {
 		try {
 			double remainingTime = nextDrawTime - System.nanoTime();
 			remainingTime /= 1000000;
-			
+
 			if(remainingTime < 0) remainingTime = 0;
-			
+		
 			Thread.sleep((long) remainingTime);
 			
 			nextDrawTime += drawInterval;
 			
-			
 		} catch (InterruptedException e) {
-			
 			e.printStackTrace();
-			
 		}
 		return nextDrawTime;
 	}
@@ -114,7 +102,7 @@ public class GamePanel extends JPanel implements Runnable {
 		
 	}
 	
-	public void paintComponent(Graphics g) { // graphics � uma classe que implementa varias formas de desenhar objetos na tela.
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
 		Graphics2D g2 = (Graphics2D)g;
@@ -125,8 +113,6 @@ public class GamePanel extends JPanel implements Runnable {
 		player2.draw(g2);
 		ruas.paintComponentCarros(g2);
 
-		
-		g2.dispose(); // descarta este contexto gr�fico e libera quisquer recursos do sistema que estao usando ele.
-		
+		g2.dispose();
 	}
 }
