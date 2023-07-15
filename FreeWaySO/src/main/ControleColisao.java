@@ -31,7 +31,7 @@ public class ControleColisao implements Runnable {
 		}
 	}
 	
-	// ------ Vai sair ---------\\
+	// Reset do personagem
 	public void PrintMatriz() {
 		for (int i = 0; i < 14; i++) {
 			for (int j = 0; j < 20; j++) {
@@ -42,9 +42,7 @@ public class ControleColisao implements Runnable {
 		System.out.println("-------------------");
 	}
 	
-	/**
-	 * Verifica se ha alguma colisao
-	 */
+	// Controle de colisão
 	public void checkColision() {
 		try {
 			gp.mutex.acquire();
