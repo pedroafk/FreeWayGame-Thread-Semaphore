@@ -87,7 +87,7 @@ public class Player extends Entity implements Runnable {
 	
 	// Mutex para região crítica
 	private void atualizaMatriz() {
-		if(y <= 48) {
+		if (y <= 48) {
 			inicializaPosicaoMatriz();
 			x = defaultX;
 			y = defaultY;
@@ -95,38 +95,53 @@ public class Player extends Entity implements Runnable {
 			gp.score.update(idPlayer);
 			return;
 		}
+	
 		try {
 			gp.mutex.acquire();
-			if(y % 48 == 0 && yAntigo != y / 48) {
-				gp.cc.matriz[yAntigo / 48][x / 48] = 0;
-				if(gp.cc.matriz[y / 48][x / 48] == 0) {
-					gp.cc.matriz[y / 48][x / 48] = idPlayer;
+	
+			int linhaAtual = y / 48;
+			int colunaAtual = x / 48;
+			int linhaAntiga = yAntigo / 48;
+	
+			if (y % 48 == 0 && yAntigo != linhaAtual) {
+				gp.cc.matriz[linhaAntiga][colunaAtual] = 0;
+	
+				if (gp.cc.matriz[linhaAtual][colunaAtual] == 0) {
+					gp.cc.matriz[linhaAtual][colunaAtual] = idPlayer;
 					yAntigo = y;
 				} else {
-					if(idPlayer == 1)
+					if (idPlayer == 1) {
 						gp.cc.colision1 = true;
-					else
+					} else {
 						gp.cc.colision2 = true;
+					}
 				}
 			}
-		} catch(InterruptedException e) {
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
 			gp.mutex.release();
 		}
 	}
+	
 
 	// reseta player
 	public void resetPosition() {
-		
-		if(gp.cc.matriz[y / 48][x / 48] == idPlayer) {
-			gp.cc.matriz[y / 48][x / 48] = 0;			
+		int linhaAtual = y / 48;
+		int colunaAtual = x / 48;
+		int linhaDefault = defaultY / 48;
+		int colunaDefault = defaultX / 48;
+	
+		if (gp.cc.matriz[linhaAtual][colunaAtual] == idPlayer) {
+			gp.cc.matriz[linhaAtual][colunaAtual] = 0;
 		}
+	
 		x = defaultX;
 		y = defaultY;
 		yAntigo = y;
-		gp.cc.matriz[defaultY / 48][defaultX / 48] = idPlayer;
+		gp.cc.matriz[linhaDefault][colunaDefault] = idPlayer;
 	}
+	
 	
 	@Override
 	public void run() {
