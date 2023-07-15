@@ -29,7 +29,7 @@ public class TileManager {
 		
 		try {
 			
-			InputStream is = getClass().getResourceAsStream("/Mapa01.txt");
+			InputStream is = getClass().getResourceAsStream("/MeuMapa.txt");
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			
 			int col = 0;
