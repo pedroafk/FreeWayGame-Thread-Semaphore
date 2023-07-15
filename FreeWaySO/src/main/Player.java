@@ -72,13 +72,18 @@ public class Player extends Entity implements Runnable {
 	private void inicializaPosicaoMatriz() {
 		try {
 			gp.mutex.acquire();
-			gp.cc.matriz[y / 48][x / 48] = idPlayer;
-		} catch(InterruptedException e) {
+	
+			int linhaAtual = y / 48;
+			int colunaAtual = x / 48;
+			gp.cc.matriz[linhaAtual][colunaAtual] = idPlayer;
+	
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
 			gp.mutex.release();
 		}
 	}
+	
 	
 	// Mutex para região crítica
 	private void atualizaMatriz() {
