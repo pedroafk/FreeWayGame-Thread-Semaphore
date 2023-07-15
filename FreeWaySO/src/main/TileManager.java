@@ -24,15 +24,13 @@ public class TileManager {
 		loadMap();
 	}
 	
-	/**
-	 * Ler o arquivo txt e monta o mapa
-	 */
+	// Cria matriz do jogo
 	public void loadMap() {
 		
 		try {
 			
-			InputStream is = getClass().getResourceAsStream("/Mapa01.txt"); // importa o arquivo de texto
-			BufferedReader br = new BufferedReader(new InputStreamReader(is)); // ler o conteudo do arquivo
+			InputStream is = getClass().getResourceAsStream("/Mapa01.txt");
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
 			
 			int col = 0;
 			int row = 0;
@@ -60,13 +58,9 @@ public class TileManager {
 		}
 	}
 	
-	/**
-	 * Busca as imagens para montar o mapa
-	 */
+	// Cria mapa de acordo com sprites da matriz
 	public void geTileImage() {
-		
 		try {
-			
 			tile[0] = new Tile();
 			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/piso.png"));
 			tile[1] = new Tile();
@@ -79,7 +73,6 @@ public class TileManager {
 			tile[4].image = ImageIO.read(getClass().getResourceAsStream("/amarelo2.png"));
 			tile[5] = new Tile();
 			tile[5].image = ImageIO.read(getClass().getResourceAsStream("/parede.png"));
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -12,7 +12,7 @@ public class Player extends Entity implements Runnable {
 	int defaultX, defaultY;
 	
 	int idPlayer;
-	int yAntigo; // Gambiarra talvez ???
+	int yAntigo;
 	
 	public Player(GamePanel gp, KeyHandler keyH, int x, int y, int idPlayer) {
 		this.gp = gp;
@@ -40,9 +40,7 @@ public class Player extends Entity implements Runnable {
 		yAntigo = y;
 	}
 	
-	/**
-	 * Pega a imagem da galinha
-	 */
+	// Sprite da galinha
 	public void getPlayerImage() {
 		try {
 			
@@ -53,14 +51,11 @@ public class Player extends Entity implements Runnable {
 		}
 	}
 	
-	public void update() { // Talvez colocar mais uma condi��o aqui para update na tela quando atingir o outro lado da rodovia
-		//System.out.println("y: " + y);
-		
+	public void update() {
 		if(keyH.upPressed == true)
 			y -= speed;
 		else if(keyH.downPressed == true)
 			y += y == 576 ? 0 : speed;
-		
 	}
 	/**
 	 * Desenha a galinha na tela
@@ -73,9 +68,7 @@ public class Player extends Entity implements Runnable {
 		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
 	}
 	
-	/**
-	 * quando o Player e criado, ele chama este metodo para setar seus valores na matriz de controle.
-	 */
+	// Criação do player na tela
 	private void inicializaPosicaoMatriz() {
 		try {
 			gp.mutex.acquire();
@@ -87,11 +80,8 @@ public class Player extends Entity implements Runnable {
 		}
 	}
 	
-	/**
-	 * Este metodo atualiza a matriz de controle do jogo, implementando um mutex para tratar acesso a
-	 * regiao critica.
-	 */
-	private void atualizaMatriz() { // Juntamente com atualizar na matriz o retorno ao inicio ao atingir o outro lado da rodovia
+	// Mutex para região crítica
+	private void atualizaMatriz() {
 		if(y <= 48) {
 			inicializaPosicaoMatriz();
 			x = defaultX;
@@ -113,9 +103,7 @@ public class Player extends Entity implements Runnable {
 					else
 						gp.cc.colision2 = true;
 				}
-//				gp.cc.PrintMatriz();
 			}
-
 		} catch(InterruptedException e) {
 			e.printStackTrace();
 		} finally {
@@ -123,9 +111,7 @@ public class Player extends Entity implements Runnable {
 		}
 	}
 
-	/**
-	 * Quando h� colisao, este metodo reseta as posicoes do player.
-	 */
+	// reseta player
 	public void resetPosition() {
 		
 		if(gp.cc.matriz[y / 48][x / 48] == idPlayer) {
@@ -139,12 +125,9 @@ public class Player extends Entity implements Runnable {
 	
 	@Override
 	public void run() {
-
 		inicializaPosicaoMatriz();
 		while(threadPlayer != null) {
-			
 			atualizaMatriz();
-			
 		}
 	}
 }

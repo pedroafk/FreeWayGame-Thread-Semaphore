@@ -12,12 +12,9 @@ public class Main {
 		
 		GamePanel gamePanel = new GamePanel();
 		window.add(gamePanel);
-		
-		window.pack(); // a janela fica do tamanho preferido e com os layouts setados na classe GamePanel().
-		
+		window.pack();
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
-	
 		gamePanel.startGameThread();
 	}
 }

@@ -29,7 +29,7 @@ public class Score {
 	 * @param g2 Grafico utilizado para desenhar a tela no gamepanel
 	 */
 	public void draw(Graphics2D g2) {
-		g2.setFont(new Font("Courier New", Font.BOLD, 50));
+		g2.setFont(new Font("Arial", Font.BOLD + Font.ITALIC, 40));
 		g2.drawString(Integer.toString(players[0]), 192, 42);
 		g2.drawString(Integer.toString(players[1]), 720, 42);
 	}
