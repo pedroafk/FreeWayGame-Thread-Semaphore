@@ -46,7 +46,7 @@ public class Player extends Entity implements Runnable {
 	public void getPlayerImage() {
 		try {
 			
-			look = ImageIO.read(getClass().getResourceAsStream("/Player.png"));
+			look = ImageIO.read(getClass().getResourceAsStream("/galinha.png"));
 			
 		} catch (IOException e) {
 			e.printStackTrace();
