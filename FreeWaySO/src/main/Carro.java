@@ -105,57 +105,84 @@ public class Carro extends Entity implements Runnable{
 	private void alteraMatrizBaixo() {
 		try {
 			gp.mutex.acquire();
-			if(x < gp.screenWidth) {
-				if(x / 48 > 0)
-					gp.cc.matriz[y / 48][(x / 48) - 1] = 0;
-				
-				if(gp.cc.matriz[y / 48][x / 48] != 0) {
-					if(gp.cc.matriz[y / 48][x / 48] == 1)
-						gp.cc.colision1 = true;
-					else if(gp.cc.matriz[y / 48][x / 48] == 2)
-						gp.cc.colision2 = true;
-				}
-				gp.cc.matriz[y / 48][x / 48] = 3;
+			
+			if (x >= gp.screenWidth) {
+				return; // Não faz nada se x for maior ou igual a gp.screenWidth
 			}
-		} catch(InterruptedException e) {
+			
+			int colunaAtual = x / 48;
+			int colunaAnterior = colunaAtual - 1;
+			int linhaAtual = y / 48;
+	
+			if (colunaAnterior >= 0) {
+				gp.cc.matriz[linhaAtual][colunaAnterior] = 0;
+			}
+	
+			int valorAtual = gp.cc.matriz[linhaAtual][colunaAtual];
+			if (valorAtual != 0) {
+				if (valorAtual == 1) {
+					gp.cc.colision1 = true;
+				} else if (valorAtual == 2) {
+					gp.cc.colision2 = true;
+				}
+			}
+	
+			gp.cc.matriz[linhaAtual][colunaAtual] = 3;
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
 			gp.mutex.release();
 		}
 	}
+	
 	
 	// Mutex para colisão superior
 	private void alteraMatrizAlto() {
 		try {
 			gp.mutex.acquire();
-			if(x / 48 < 19) {
-				gp.cc.matriz[y / 48][(x / 48) + 1] = 0;
-				if(gp.cc.matriz[y / 48][x / 48] != 0) {
-					if(gp.cc.matriz[y / 48][x / 48] == 1)
+	
+			int colunaAtual = x / 48;
+			int colunaProxima = colunaAtual + 1;
+			int linhaAtual = y / 48;
+	
+			if (colunaProxima < 19) {
+				gp.cc.matriz[linhaAtual][colunaProxima] = 0;
+	
+				int valorAtual = gp.cc.matriz[linhaAtual][colunaAtual];
+				if (valorAtual != 0) {
+					if (valorAtual == 1) {
 						gp.cc.colision1 = true;
-					else if(gp.cc.matriz[y / 48][x / 48] == 2)
+					} else if (valorAtual == 2) {
 						gp.cc.colision2 = true;
+					}
 				}
-				gp.cc.matriz[y / 48][x / 48] = 3;
+	
+				gp.cc.matriz[linhaAtual][colunaAtual] = 3;
 			}
-		} catch(InterruptedException e) {
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
 			gp.mutex.release();
 		}
 	}
 	
+	
 	// Posição para colisão
 	private void inicializaMatriz() {
 		try {
 			gp.mutex.acquire();
-			gp.cc.matriz[y / 48][x / 48] = 3;
-		} catch(InterruptedException e) {
+	
+			int linhaAtual = y / 48;
+			int colunaAtual = x / 48;
+			gp.cc.matriz[linhaAtual][colunaAtual] = 3;
+	
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
 			gp.mutex.release();
 		}
 	}
+	
 
 	@Override
 	public void run() {
