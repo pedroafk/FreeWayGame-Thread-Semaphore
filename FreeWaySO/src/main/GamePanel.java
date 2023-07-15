@@ -49,8 +49,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 		cc = new ControleColisao(this);
 		mutex = new Semaphore(1, true);
-		player1 = new Player(this, keyH_ws, 192, 576, 1);
-		player2 = new Player(this, keyH_arrow, 720, 576, 2);
+		player1 = new Player(this, keyH_ws, 412, 576, 1);
+		player2 = new Player(this, keyH_arrow, 500, 576, 2);
 		ruas = new Ruas(this);
 		
 	}
