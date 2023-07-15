@@ -46,19 +46,23 @@ public class ControleColisao implements Runnable {
 	public void checkColision() {
 		try {
 			gp.mutex.acquire();
-			if(colision1) {
+	
+			if (colision1) {
 				gp.player1.resetPosition();
-				colision1 = false;
 			} else if (colision2) {
 				gp.player2.resetPosition();
-				colision2 = false;
 			}
-		} catch(InterruptedException e) {
+	
+			colision1 = false;
+			colision2 = false;
+	
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} finally {
 			gp.mutex.release();
 		}
 	}
+	
 	
 	@Override
 	public void run() {
