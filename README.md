@@ -2,6 +2,9 @@
 
 Este projeto consiste na implementação do jogo **Freeway**, inspirado no clássico "Game One: Lake Shore Drive", utilizando a linguagem Java. O jogo foi desenvolvido como parte da disciplina de **Sistemas Operacionais** no curso de Engenharia de Computação da **Universidade Federal de Itajubá (UNIFEI)**.
 
+![FreeWaySO](https://github.com/user-attachments/assets/912dcc5f-184f-4264-b4bd-26f2e1bf7d97)
+
+
 ## 📝 Descrição
 
 O objetivo do jogo é guiar as galinhas para atravessarem uma avenida movimentada, evitando colisões com veículos em movimento. O projeto faz uso de conceitos fundamentais de Sistemas Operacionais, como threads e semáforos, para gerenciar a sincronização das ações dos jogadores e veículos de forma eficiente e segura.
